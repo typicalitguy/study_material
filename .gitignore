@@ -1,3 +1,4 @@
 [~][$]*
 /code/mongodb/**
 [~]*
+/code/dist/*
