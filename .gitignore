@@ -2,6 +2,6 @@
 /code/mongodb/data/*
 !/code/mongodb/data/git.keep
 /code/mongodb/logs/*
-/code/mongodb/logs/git.keep
+!/code/mongodb/logs/git.keep
 [~]*
 /code/dist/*
