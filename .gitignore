@@ -4,4 +4,4 @@
 /code/mongodb/logs/*
 !/code/mongodb/logs/git.keep
 [~]*
-/code/dist/*
+/**/dist/*
