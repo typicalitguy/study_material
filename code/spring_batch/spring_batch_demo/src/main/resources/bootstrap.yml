@@ -1,0 +1,10 @@
+server:
+  port: 8000
+spring:
+ application:
+    name: SPRING_BATCH_DEMO
+ config:
+    name: SPRING_BATCH_DEMO
+    use-legacy-processing: true
+ profiles:
+    active: mysql
