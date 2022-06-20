@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.github.typicalitguy.tasklet.listner.DemoTaskletJobExecutionListner;
+import com.github.typicalitguy.tasklet.listner.DemoTaskletStepExecutionListener;
+
 @Configuration
 public class TaskletJobConfiguration {
 
@@ -22,9 +25,9 @@ public class TaskletJobConfiguration {
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 
-	@Bean
-	public Job firstJob() {
-		return jobBuilderFactory.get("first job")
+//	@Bean
+	public Job firstTaskletJob() {
+		return jobBuilderFactory.get("first tasklet job")
 		.incrementer(new RunIdIncrementer())
 		.listener(new DemoTaskletJobExecutionListner())
 		.start(firstStep())
@@ -33,13 +36,13 @@ public class TaskletJobConfiguration {
 	}
 
 	private Step firstStep() {
-		return stepBuilderFactory.get("first step")
+		return stepBuilderFactory.get("first tasklet step")
 				.tasklet(task(1))
 				.listener(new DemoTaskletStepExecutionListener())
 				.build();
 	}
 	private Step secondStep() {
-		return stepBuilderFactory.get("second step")
+		return stepBuilderFactory.get("second tasklet step")
 				.tasklet(new DemoTasklet(2))
 				.build();
 	}
