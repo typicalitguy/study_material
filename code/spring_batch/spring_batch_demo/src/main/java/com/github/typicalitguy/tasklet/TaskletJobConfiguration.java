@@ -25,7 +25,7 @@ public class TaskletJobConfiguration {
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 
-//	@Bean
+	@Bean
 	public Job firstTaskletJob() {
 		return jobBuilderFactory.get("first tasklet job")
 		.incrementer(new RunIdIncrementer())

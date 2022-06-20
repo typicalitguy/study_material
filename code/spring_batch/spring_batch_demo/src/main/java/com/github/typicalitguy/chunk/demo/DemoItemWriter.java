@@ -8,6 +8,7 @@ public class DemoItemWriter implements ItemWriter<String> {
 
 	@Override
 	public void write(List<? extends String> items) throws Exception {
+		Thread.sleep(4000);
 		System.out.println(items);
 	}
 
