@@ -9,10 +9,8 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.mapping.DefaultLineMapper;
-import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.json.JacksonJsonObjectReader;
+import org.springframework.batch.item.json.JsonItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +24,7 @@ public class JSONReaderChunckOriententedJobConfiguration {
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 
-	@Bean
+//	@Bean
 	public Job flatFileReaderChunkOrientedJob() {
 		return jobBuilderFactory.get("first JSON reader chunk oriented job")
 				.incrementer(new RunIdIncrementer())
@@ -37,37 +35,23 @@ public class JSONReaderChunckOriententedJobConfiguration {
 	private Step firstDemoChunkOrientedStep() {
 		return stepBuilderFactory.get("first JSON reader chunk oriented step")
 				.<StudentJSON, StudentJSON>chunk(3)
-				.reader(flatFileItemReader())
+				.reader(jsonItemReader())
 				.writer(itemWriter())
 				.build();
 	}
 
-	public FlatFileItemReader<StudentJSON> flatFileItemReader() {
-		FlatFileItemReader<StudentJSON> flatFileItemReader = new FlatFileItemReader<>();
-		flatFileItemReader.setResource(absoluteResourcePath("/src/main/resources/input-files/csv/students.csv"));
-		flatFileItemReader.setLineMapper(createDefaultLineMapper());
-		flatFileItemReader.setLinesToSkip(1);
-		return flatFileItemReader;
+	public JsonItemReader<StudentJSON> jsonItemReader() {
+		JsonItemReader<StudentJSON> jsonItemReader = new JsonItemReader<>();
+		jsonItemReader.setResource(absoluteResourcePath("/input-files/json/students.json"));
+		jsonItemReader.setJsonObjectReader(new JacksonJsonObjectReader<>(StudentJSON.class));
+		//jsonItemReader.setMaxItemCount(8);
+		//jsonItemReader.setCurrentItemCount(2);
+		return jsonItemReader;
 	}
 
 	private FileSystemResource absoluteResourcePath(String path) {
 		return new FileSystemResource(Paths
 				.get(System.getProperty("user.dir"), path).toString());
-	}
-
-	private DefaultLineMapper<StudentJSON> createDefaultLineMapper() {
-
-		DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer();
-		delimitedLineTokenizer.setDelimiter(",");
-		delimitedLineTokenizer.setNames("id", "first_name", "last_name", "email");
-
-		BeanWrapperFieldSetMapper<StudentJSON> beanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<>();
-		beanWrapperFieldSetMapper.setTargetType(StudentJSON.class);
-
-		DefaultLineMapper<StudentJSON> defaultLineMapper = new DefaultLineMapper<>();
-		defaultLineMapper.setLineTokenizer(delimitedLineTokenizer);
-		defaultLineMapper.setFieldSetMapper(beanWrapperFieldSetMapper);
-		return defaultLineMapper;
 	}
 
 	private ItemWriter<StudentJSON> itemWriter() {

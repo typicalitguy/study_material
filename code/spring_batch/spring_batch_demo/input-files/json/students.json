@@ -3,7 +3,8 @@
 		"id": "111111",
 		"first_name": "John",
 		"last_name": "Doe",
-		"email": "jdoe@example.com"
+		"email": "jdoe@example.com",
+		"age":25
 	},
 	{
 		"id": "111112",

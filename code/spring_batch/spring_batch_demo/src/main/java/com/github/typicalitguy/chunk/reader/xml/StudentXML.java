@@ -1,15 +1,14 @@
-package com.github.typicalitguy.chunk.reader.json;
+package com.github.typicalitguy.chunk.reader.xml;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class StudentJSON {
+@XmlRootElement(name="students")
+public class StudentXML {
 	private String id;
-	
-	@JsonProperty("first_name")
+	@XmlElement(name="firstName")
 	private String firstName;
-	@JsonProperty("last_name")
+	@XmlElement(name="lastName")
 	private String lastName;
 	private String email;
 

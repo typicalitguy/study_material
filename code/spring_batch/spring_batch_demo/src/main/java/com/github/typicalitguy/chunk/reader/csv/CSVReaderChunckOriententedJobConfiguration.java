@@ -44,7 +44,7 @@ public class CSVReaderChunckOriententedJobConfiguration {
 
 	public FlatFileItemReader<StudentCSV> flatFileItemReader() {
 		FlatFileItemReader<StudentCSV> flatFileItemReader = new FlatFileItemReader<>();
-		flatFileItemReader.setResource(absoluteResourcePath("/src/main/resources/input-files/csv/students.csv"));
+		flatFileItemReader.setResource(absoluteResourcePath("/input-files/csv/students.csv"));
 		flatFileItemReader.setLineMapper(createDefaultLineMapper());
 		flatFileItemReader.setLinesToSkip(1);
 		return flatFileItemReader;
