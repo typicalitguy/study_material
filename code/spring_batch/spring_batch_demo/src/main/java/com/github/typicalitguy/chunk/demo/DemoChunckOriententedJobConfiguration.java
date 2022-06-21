@@ -21,7 +21,7 @@ public class DemoChunckOriententedJobConfiguration {
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 
-	@Bean
+//	@Bean
 	public Job firstDemoChunkOrientedJob() {
 		return jobBuilderFactory.get("first demo chunk oriented job")
 				.incrementer(new RunIdIncrementer())

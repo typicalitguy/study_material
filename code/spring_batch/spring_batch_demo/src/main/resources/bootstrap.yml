@@ -3,4 +3,5 @@ spring.application.name: SPRING_BATCH_DEMO
 spring.config.name: SPRING_BATCH_DEMO
 spring.config.use-legacy-processing: true
 spring.profiles.active: mysql
-spring.batch.job.enabled: false
+
+#spring.batch.job.enabled: false
