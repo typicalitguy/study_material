@@ -24,7 +24,7 @@ public class RestReaderChunckOriententedJobConfiguration {
 	@Autowired
 	StudentRestService studentRestService;
 
-	@Bean
+//	@Bean
 	public Job flatFileReaderChunkOrientedJob() {
 		return jobBuilderFactory.get("first rest item reader chunk oriented job")
 				.incrementer(new RunIdIncrementer())
@@ -43,6 +43,7 @@ public class RestReaderChunckOriententedJobConfiguration {
 		ItemReaderAdapter<StudentRest> itemReaderAdapter = new ItemReaderAdapter<>();
 		itemReaderAdapter.setTargetObject(studentRestService);
 		itemReaderAdapter.setTargetMethod("getStudent");
+		itemReaderAdapter.setArguments(new Object[] {"Inside getStudent method"});
 		return itemReaderAdapter;
 	}
 	

@@ -6,9 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="students")
 public class StudentXML {
 	private String id;
-	@XmlElement(name="firstName")
+//	@XmlElement(name="firstName")
 	private String firstName;
-	@XmlElement(name="lastName")
+//	@XmlElement(name="lastName")
 	private String lastName;
 	private String email;
 
