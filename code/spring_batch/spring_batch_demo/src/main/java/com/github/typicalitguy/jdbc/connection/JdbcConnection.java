@@ -23,4 +23,10 @@ public class JdbcConnection {
 	public DataSource universitydatasource() {
 		return DataSourceBuilder.create().build();
 	}
+	
+	@Bean
+	@ConfigurationProperties(prefix="spring.postgres.datasource")
+	public DataSource postgresUniversityDatasource() {
+		return DataSourceBuilder.create().build();
+	}
 }
