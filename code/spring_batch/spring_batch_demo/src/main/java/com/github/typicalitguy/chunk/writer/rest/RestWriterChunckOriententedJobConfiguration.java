@@ -32,7 +32,7 @@ public class RestWriterChunckOriententedJobConfiguration {
 	StudentRestService studentRestService;
 	
 	@Autowired
-	@Qualifier("universitydatasource")
+	@Qualifier("mysqlUniversityDatasource")
 	private DataSource universitydataSource;
 	
 //	@Bean

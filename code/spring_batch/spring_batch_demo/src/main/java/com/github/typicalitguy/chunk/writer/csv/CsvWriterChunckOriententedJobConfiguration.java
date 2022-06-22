@@ -37,7 +37,7 @@ public class CsvWriterChunckOriententedJobConfiguration {
 
 	
 	@Autowired
-	@Qualifier("universitydatasource")
+	@Qualifier("mysqlUniversityDatasource")
 	private DataSource universitydataSource;
 	
 //	@Bean

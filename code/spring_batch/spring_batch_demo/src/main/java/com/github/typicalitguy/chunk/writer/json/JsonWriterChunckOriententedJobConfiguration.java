@@ -31,7 +31,7 @@ public class JsonWriterChunckOriententedJobConfiguration {
 	private StepBuilderFactory stepBuilderFactory;
 
 	@Autowired
-	@Qualifier("universitydatasource")
+	@Qualifier("mysqlUniversityDatasource")
 	private DataSource universitydataSource;
 
 //	@Bean

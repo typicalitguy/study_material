@@ -33,7 +33,7 @@ public class JdbcWriterChunckOriententedJobConfiguration {
 
 	
 	@Autowired
-	@Qualifier("universitydatasource")
+	@Qualifier("mysqlUniversityDatasource")
 	private DataSource universitydataSource;
 	
 //	@Bean
