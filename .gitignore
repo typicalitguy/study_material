@@ -1,7 +1,7 @@
 [~][$]*
-/code/mongodb/data/*
-!/code/mongodb/data/git.keep
-/code/mongodb/logs/*
-!/code/mongodb/logs/git.keep
+/mongodb/data/*
+!/mongodb/data/git.keep
+/mongodb/logs/*
+!/mongodb/logs/git.keep
 [~]*
 /**/dist/*
