@@ -10,3 +10,13 @@ spec:
   env:
   - name: POSTGRES_PASSWORD
     value: MY_SECRET_PASSWORD
+  - name: POSTGRES_PASSWORD
+    valueFrom:
+      configMapKeyRef:
+        name: posgtres-config
+        key: password
+  - name: POSTGRES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: postgres-secret
+        key: password
