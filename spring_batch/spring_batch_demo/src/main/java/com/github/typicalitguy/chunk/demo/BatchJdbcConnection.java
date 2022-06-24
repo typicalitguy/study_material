@@ -1,4 +1,4 @@
-package com.github.typicalitguy.jdbc.connection;
+package com.github.typicalitguy.chunk.demo;
 
 import javax.sql.DataSource;
 
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 @Configuration
-public class JdbcConnection {
+public class BatchJdbcConnection {
 
 	@Bean
 	@Primary
