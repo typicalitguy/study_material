@@ -1,22 +1,21 @@
 package com.github.typicalitguy.chunk.reader.csv;
 
-import java.nio.file.Paths;
-import java.util.List;
-
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
+
+import com.github.typicalitguy.chunk.demo.Student;
+import com.github.typicalitguy.chunk.demo.StudentItemWriter;
+import com.github.typicalitguy.util.PathUtils;
 
 @Configuration
 public class CSVReaderChunckOriententedJobConfiguration {
@@ -36,25 +35,21 @@ public class CSVReaderChunckOriententedJobConfiguration {
 
 	private Step firstDemoChunkOrientedStep() {
 		return stepBuilderFactory.get("first first flat file CSV reader chunk oriented step")
-				.<StudentCSV, StudentCSV>chunk(3)
+				.<StudentCSV, Student>chunk(3)
 				.reader(flatFileItemReader())
-				.writer(itemWriter())
+				.processor(processor())
+				.writer(new StudentItemWriter())
 				.build();
 	}
 
+
 	public FlatFileItemReader<StudentCSV> flatFileItemReader() {
 		FlatFileItemReader<StudentCSV> flatFileItemReader = new FlatFileItemReader<>();
-		flatFileItemReader.setResource(absoluteResourcePath("/input-files/csv/students.csv"));
+		flatFileItemReader.setResource(PathUtils.resource("/input-files/csv/students.csv"));
 		flatFileItemReader.setLineMapper(createDefaultLineMapper());
 		flatFileItemReader.setLinesToSkip(1);
 		return flatFileItemReader;
 	}
-
-	private FileSystemResource absoluteResourcePath(String path) {
-		return new FileSystemResource(Paths
-				.get(System.getProperty("user.dir"), path).toString());
-	}
-
 	private DefaultLineMapper<StudentCSV> createDefaultLineMapper() {
 
 		DelimitedLineTokenizer delimitedLineTokenizer = new DelimitedLineTokenizer();
@@ -70,14 +65,9 @@ public class CSVReaderChunckOriententedJobConfiguration {
 		return defaultLineMapper;
 	}
 
-	private ItemWriter<StudentCSV> itemWriter() {
-		return new ItemWriter<>() {
 
-			@Override
-			public void write(List<? extends StudentCSV> items) throws Exception {
-				System.out.println(items);
-			}
-
-		};
+	private ItemProcessor<? super StudentCSV, ? extends Student> processor() {
+		return student -> new Student(student.getId(), student.getFirstName(), student.getLastName(),
+				student.getEmail());
 	}
 }
