@@ -25,7 +25,7 @@ import com.github.typicalitguy.project.postgres.entity.StudentPostgres;
 @Configuration
 public class DataMigrationJobConfiguration {
 
-	@Bean
+//	@Bean
 	public Job dbMigrationJob(@Autowired JobBuilderFactory jobBuilderFactory,
 			@Autowired @Qualifier("dbMigrationStep") Step step) {
 		return jobBuilderFactory.get("DB migration project").incrementer(new RunIdIncrementer()).start(step).build();
