@@ -4,6 +4,8 @@ import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 
+import com.github.typicalitguy.logger.Logger;
+
 public class StudentStepExecutionListener implements StepExecutionListener {
 
 	@Override

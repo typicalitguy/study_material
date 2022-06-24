@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.batch.item.ItemWriter;
 
+import com.github.typicalitguy.logger.Logger;
+
 public class StudentItemWriter implements ItemWriter<Student> {
 
 	@Override

@@ -1,4 +1,4 @@
-package com.github.typicalitguy.chunk.demo;
+package com.github.typicalitguy.logger;
 
 public class Logger {
 	public static void log(Object data) {

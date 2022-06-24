@@ -5,6 +5,8 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 
+import com.github.typicalitguy.logger.Logger;
+
 public class ProfessorNotifierTasklet implements Tasklet {
 
 	@Override

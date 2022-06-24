@@ -3,6 +3,8 @@ package com.github.typicalitguy.chunk.demo;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
 
+import com.github.typicalitguy.logger.Logger;
+
 public class StudentJobExecutionListner implements JobExecutionListener {
 
 	@Override
