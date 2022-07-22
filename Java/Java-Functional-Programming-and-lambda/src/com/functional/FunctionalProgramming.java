@@ -1,11 +1,16 @@
 package com.functional;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import com.functional.entity.Course;
@@ -19,6 +24,117 @@ public class FunctionalProgramming {
 		//integerStreams();
 		//customClasses();
 		//otherStreams();
+		//stringJoining();
+		//parallelStream();
+		//directStreamMethod();
+		//withFiles();
+		threads();
+		
+	}
+	public static void threads() {
+		Runnable runnable =() -> System.out.println(Thread.currentThread().getId());
+		new Thread(runnable).start();
+		
+	}
+	public static void withFiles() {
+		// System.out.println(System.getProperty("user.dir"));
+		try {
+			Files.lines(Paths.get("user.txt"))
+			.forEach(System.out::println);
+			
+			System.out.println(
+					Files.lines(Paths.get("user.txt"))
+					.map(name->name.toLowerCase().split(""))
+					.flatMap(Arrays::stream)
+					.distinct()
+					.sorted()
+					.collect(Collectors.joining())
+					);
+			
+			
+			Files.list(Paths.get("."))
+			.filter(Files::isDirectory)
+			.forEach(System.out::println);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public static void directStreamMethod() {
+		List<String> courses = new ArrayList<>(List.of("Spring", "Spring Boot", "API", "Microservices", "AWS", "PCF", "Azure", "Docker",
+				"Kubernetes", "GCP"));
+		courses.replaceAll(String::toUpperCase);
+		System.out.println(courses);
+		courses.removeIf(course-> course.length()<4);
+		System.out.println(courses);
+	}
+	public static void parallelStream() {
+		timeCheck(()->
+			System.out.println(
+					LongStream
+					.rangeClosed(0, 100000000)
+					.sum()
+					)	
+				, "sum without parallel");
+		timeCheck(()->
+		System.out.println(
+				LongStream
+				.rangeClosed(0, 100000000)
+				.parallel()
+				.sum()
+				)	
+			, "sum with parallel");
+	}
+
+	public static void timeCheck(Runnable runnable, String identifier) {
+		long startTime = System.currentTimeMillis();
+		runnable.run();
+		long endTime = System.currentTimeMillis();
+		identifier = "time taken " + (null != identifier ? "for " + identifier + " : " : "") + (endTime - startTime);
+		System.out.println(identifier);
+	}
+	public static void stringJoining() {
+		List<String> courses = List.of("Spring", "Spring Boot", "API", "Microservices", "AWS", "PCF", "Azure", "Docker",
+				"Kubernetes", "GCP");
+		System.out.println(
+				courses
+				.stream()
+				.collect(Collectors.joining(","))
+				);
+		System.out.println(
+				courses
+				.stream()
+				.collect(Collectors.joining(",", "[", "]"))
+				);
+		System.out.println(
+				courses
+				.stream()
+				.map(course->course.split(""))
+				.flatMap(Arrays::stream)
+				.collect(Collectors.toList())
+				);
+		System.out.println(
+				courses
+				.stream()
+				.map(course->course.split(""))
+				.flatMap(Arrays::stream)
+				.distinct()
+				.collect(Collectors.toList())
+				);
+		
+		List<List<String>> allCountries= List.of(
+				List.of("Colombia", "Finland", "Greece", "Iceland", "Liberia", "Mali", "Mauritius"),
+				List.of("Peru", "Serbia", "Singapore", "Turkey", "Uzbekistan", "Yemen", "Zimbabwe",
+						"Greece", "Iceland"),
+				List.of("India","Bngladesh","Sri Lanka","Rusia","USA","China","England","Pakistan"));
+		System.out.println(
+				allCountries
+				.stream()
+				.flatMap(List::stream)
+				.distinct()
+				.collect(Collectors.toList())
+				);
 	}
 	public static void integerStreams() {
 		List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -217,5 +333,5 @@ public class FunctionalProgramming {
 						))
 				);
 	}
-
+	
 }

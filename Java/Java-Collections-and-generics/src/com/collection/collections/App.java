@@ -7,13 +7,7 @@ import java.util.List;
 
 class Factory {
 	public static List<Integer> getList() {
-		List<Integer> nums = new ArrayList<>();
-		nums.add(1);
-		nums.add(5);
-		nums.add(3);
-		nums.add(2);
-		nums.add(4);
-		return nums;
+		return new ArrayList<>(List.of(0,1,2,3,4,5,6,7,8,9));
 	}
 }
 
@@ -27,12 +21,11 @@ public class App {
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		List<Integer> nums = Factory.getList();
-		Collections.shuffle(nums);// Shuffles the list
-		Collections.rotate(nums, 2);// rotates the list
-		Collections.copy(new ArrayList<>(), nums);// copy one list to another
+		Collections.shuffle(Factory.getList());// Shuffles the list
+		Collections.rotate(Factory.getList(), 2);// rotates the list
+		Collections.copy(new ArrayList<>(), Factory.getList());// copy one list to another
 		Collections.unmodifiableList(Factory.getList());// create an unmodifiable list
-		Collections.synchronizedList(nums);// creates synchronized thread-safe list by using intrinsic lock
+		Collections.synchronizedList(Factory.getList());// creates synchronized thread-safe list by using intrinsic lock
 
 	}
 

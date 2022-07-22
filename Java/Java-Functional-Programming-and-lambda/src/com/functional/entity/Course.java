@@ -1,6 +1,7 @@
 package com.functional.entity;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Course {
 
@@ -60,5 +61,8 @@ public class Course {
 	}
 	public static boolean isReviewScoreLessThan(Course course,int reviewScore) {
 		return course.getReviewScore()<reviewScore;
+	}
+	public static Predicate<Course> isReviewScoreGreaterThan(int reviewScore){
+		return course -> course.getReviewScore()>reviewScore;
 	}
 }
